@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: axion-data-simulator
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: axion-data-simulator
+
+  template:
+    metadata:
+      labels:
+        app: axion-data-simulator
+
+    spec:
+      containers:
+        - name: simulator
+          image: ghcr.io/ranjeet-112/axion-data-simulator:d003681
+          imagePullPolicy: IfNotPresent
+
+          envFrom:
+            - configMapRef:
+                name: axion-simulator-config
